@@ -9,19 +9,23 @@ abstract class Coffee {
 
     public Coffee(String name, double price, double coffeeWeight, double packagingWeight, 
                   double coffeeVolume, double packagingVolume, int qualityRating) {
-        this.name = name;
-        this.price = price;
-        this.coffeeWeight = coffeeWeight;
-        this.packagingWeight = packagingWeight;
-        this.coffeeVolume = coffeeVolume;
-        this.packagingVolume = packagingVolume;
-        this.qualityRating = qualityRating;
+        setName(name);
+        setPrice(price);
+        setCoffeeWeight(coffeeWeight);
+        setPackagingWeight(packagingWeight);
+        setCoffeeVolume(coffeeVolume);
+        setPackagingVolume(packagingVolume);
+        setQualityRating(qualityRating);
     }
 
     public abstract String getState();
 
     public double getPriceWeightRatio() {
-        return price / getTotalWeight();
+        double totalWeight = getTotalWeight();
+        if (totalWeight == 0) {
+            throw new ArithmeticException("Total weight cannot be zero when calculating price/weight ratio.");
+        }
+        return price / totalWeight;
     }
 
     public double getTotalWeight() {
@@ -60,34 +64,55 @@ abstract class Coffee {
         return qualityRating; 
     }
 
-
     public void setName(String name) { 
+        if (name == null || name.trim().isEmpty()) {
+            throw new NullPointerException("Name cannot be null or empty.");
+        }
         this.name = name; 
     }
 
     public void setPrice(double price) { 
+        if (price <= 0) {
+            throw new IllegalArgumentException("Price must be greater than zero.");
+        }
         this.price = price; 
     }
 
     public void setCoffeeWeight(double coffeeWeight) { 
+        if (coffeeWeight < 0) {
+            throw new IllegalArgumentException("Coffee weight cannot be negative.");
+        }
         this.coffeeWeight = coffeeWeight; 
     }
 
     public void setPackagingWeight(double packagingWeight) { 
+        if (packagingWeight < 0) {
+            throw new IllegalArgumentException("Packaging weight cannot be negative.");
+        }
         this.packagingWeight = packagingWeight; 
     }
 
     public void setCoffeeVolume(double coffeeVolume) { 
+        if (coffeeVolume < 0) {
+            throw new IllegalArgumentException("Coffee volume cannot be negative.");
+        }
         this.coffeeVolume = coffeeVolume; 
     }
 
     public void setPackagingVolume(double packagingVolume) { 
+        if (packagingVolume < 0) {
+            throw new IllegalArgumentException("Packaging volume cannot be negative.");
+        }
         this.packagingVolume = packagingVolume; 
     }
 
     public void setQualityRating(int qualityRating) { 
+        if (qualityRating < 0 || qualityRating > 10) {
+            throw new IllegalArgumentException("Quality rating must be between 0 and 10.");
+        }
         this.qualityRating = qualityRating; 
     }
+
 
     public void printDetails() {
         System.out.println("Name: " + name);

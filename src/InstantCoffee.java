@@ -4,7 +4,7 @@ class InstantCoffee extends Coffee {
     public InstantCoffee(String name, double price, double coffeeWeight, double packagingWeight, 
                          double coffeeVolume, double packagingVolume, int qualityRating, String packaging) {
         super(name, price, coffeeWeight, packagingWeight, coffeeVolume, packagingVolume, qualityRating);
-        this.packaging = packaging;
+        setPackaging(packaging);
     }
 
     @Override
@@ -17,6 +17,9 @@ class InstantCoffee extends Coffee {
     }
 
     public void setPackaging(String packaging) { 
+        if (packaging == null || packaging.trim().isEmpty()) {
+            throw new IllegalArgumentException("Packaging cannot be null or empty.");
+        }
         this.packaging = packaging; 
     }
 

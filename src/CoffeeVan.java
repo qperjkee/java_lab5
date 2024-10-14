@@ -10,6 +10,9 @@ class CoffeeVan {
     private double totalValue;
 
     public CoffeeVan(double maxVolume) {
+        if (maxVolume <= 0) {
+            throw new IllegalArgumentException("Max volume must be greater than zero.");
+        }
         this.maxVolume = maxVolume;
         this.cargo = new ArrayList<>();
         this.currentVolume = 0;
@@ -17,9 +20,13 @@ class CoffeeVan {
     }
 
     public boolean addCoffee(Coffee coffee) {
-        if (currentVolume + coffee.getTotalVolume() <= maxVolume) {
+        double coffeeVolume = coffee.getTotalVolume();
+        if (coffeeVolume <= 0) {
+            throw new IllegalArgumentException("Coffee volume must be greater than zero.");
+        }
+        if (currentVolume + coffeeVolume <= maxVolume) {
             cargo.add(coffee);
-            currentVolume += coffee.getTotalVolume();
+            currentVolume += coffeeVolume;
             totalValue += coffee.getPrice();
             return true;
         }
@@ -31,6 +38,9 @@ class CoffeeVan {
     }
 
     public List<Coffee> findCoffeeByQualityRange(int minQuality, int maxQuality) {
+        if (minQuality < 0 || maxQuality > 10 || minQuality > maxQuality) {
+            throw new IllegalArgumentException("Quality rating must be between 0 and 10, and minQuality cannot be greater than maxQuality.");
+        }
         return cargo.stream()
                 .filter(c -> c.getQualityRating() >= minQuality && c.getQualityRating() <= maxQuality)
                 .collect(Collectors.toList());

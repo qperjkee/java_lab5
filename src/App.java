@@ -21,11 +21,13 @@ public class App {
             try {
                 boolean added = van.addCoffee(coffee);
                 if (!added) {
-                    System.out.println("Warning: Could not add " + coffee.getName() + " to the van. The van is full.");
+                    System.out.println("Warning: Could not add " + coffee.getName() + " (" + coffee.getState() + ") to the van. The van is full.");
                     break;
                 }
+            } catch (IllegalArgumentException e) {
+                System.out.println("Invalid coffee parameters for " + coffee.getName() + " (" + coffee.getState() + "): " + e.getMessage());
             } catch (Exception e) {
-                System.out.println("Error occurred while adding " + coffee.getName() + " to the van: " + e.getMessage());
+                System.out.println("Error occurred while adding " + coffee.getName() + " (" + coffee.getState() + ") to the van: " + e.getMessage());
             }
         }
 
