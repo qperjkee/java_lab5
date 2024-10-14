@@ -5,6 +5,12 @@ class CoffeeBean extends Coffee {
     }
 
     @Override
+    public void printDetails() {
+        super.printDetails();
+        System.out.println("-------------------------------");
+    }
+
+    @Override
     public String getState() {
         return "Bean";
     }

@@ -24,6 +24,7 @@ class InstantCoffee extends Coffee {
     public void printDetails() {
         super.printDetails();
         System.out.println("Packaging: " + packaging);
+        System.out.println("-------------------------------");
     }
 
     @Override

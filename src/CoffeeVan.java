@@ -64,6 +64,5 @@ class CoffeeVan {
         for (Coffee coffee : cargo) {
             coffee.printDetails();
         }
-        System.out.println("====================================");
     }
 }
